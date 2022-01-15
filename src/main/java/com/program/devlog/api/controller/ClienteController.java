@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.program.devlog.domain.model.Cliente;
 import com.program.devlog.domain.repository.ClienteRepository;
+import com.program.devlog.domain.service.CatalogoClienteService;
 
 import lombok.AllArgsConstructor;
 
@@ -29,8 +30,9 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/clientes")
 public class ClienteController {
 	
-	@Autowired
+
 	private ClienteRepository clienteRepository;
+	private CatalogoClienteService catalogoClienteService;
 	
 	@GetMapping // Mapeando na URI
 	public List<Cliente> listar() {
@@ -48,7 +50,9 @@ public class ClienteController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Cliente adicionar(@Valid @RequestBody Cliente cliente) {
-		return clienteRepository.save(cliente);
+		// no lugar de acessar diretamente o repositório pra adicinar, atualizar ..., passa-se pela classe de serviço
+//		return clienteRepository.save(cliente);
+		return catalogoClienteService.salvar(cliente);
 	}
 	@PutMapping("/{clienteId}")
 	public ResponseEntity<Cliente> atualizar(@Valid @PathVariable Long clienteId, @RequestBody Cliente cliente){
@@ -56,7 +60,9 @@ public class ClienteController {
 			return ResponseEntity.notFound().build();
 		}
 		cliente.setId(clienteId);
-		cliente = clienteRepository.save(cliente);
+		// no lugar de acessar diretamente o repositório pra adicinar, atualizar ..., passa-se pela classe de serviço
+//		cliente = clienteRepository.save(cliente);
+		cliente = catalogoClienteService.salvar(cliente);
 		
 		return ResponseEntity.ok(cliente);
 	}
@@ -65,7 +71,10 @@ public class ClienteController {
 		if (!clienteRepository.existsById(clienteId)) {
 			return ResponseEntity.notFound().build();
 		}
-		clienteRepository.deleteById(clienteId);
+		
+		// no lugar de acessar diretamente o repositório pra adicinar, atualizar ..., passa-se pela classe de serviço
+//		clienteRepository.deleteById(clienteId);
+		catalogoClienteService.excluir(clienteId);
 		
 		return ResponseEntity.noContent().build();
 	}
