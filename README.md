@@ -14,4 +14,6 @@ Tratamento de excessões e modelagem de erros da API
 
 No projeto usei o Postman para realizar os testes das requisições na URI.
 
-SQL - Deixei habilitado o código SQL para verificar as consultas pelo Jakarta Persistence
+SQL - Foi habilitado o código SQL para verificar as consultas pelo Jakarta Persistence
+
+Modelmapper - Fazer o mapeamento do objeto e a transformação de um modelo para o outro com mais facilidade

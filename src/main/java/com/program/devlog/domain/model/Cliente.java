@@ -22,7 +22,6 @@ import lombok.Setter;
 @Entity		// relacionanmento com banco de dados - JPA
 public class Cliente {
 	
-	@NotNull(groups = ValidationGroups.ClienteId.class)
 	@EqualsAndHashCode.Include
 	@Id
 	@NotNull
